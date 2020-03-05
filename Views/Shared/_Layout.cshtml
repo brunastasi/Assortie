@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mon application ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">
+            @*<img src="~/images/logo_white.png" width="30" height="30" alt="logo">*@
+            @Html.ActionLink("Assortie", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar-list">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    @Html.ActionLink("Accueil", "Index", "Home", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Panier", "Panier", "Home", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Restaurants", "Details", "Restaurants", new { @Id = 2 }, new { @class = "nav-link" })
+                </li>
+            </ul>
+            <div class="right-side d-flex">
+                <ul class="navbar-nav">
+                    <span class="navbar-text">
+                        @{
+
+                            @*if (isConnected == "true")
+                            {
+                                <div>Hey, @utilisateur.Prenom</div>
+
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Connexion", "Connexion", "Utilisateurs", null, new { @class = "nav-link" })
+
+                            }*@
+
+                        }
+                    </span>
+                    @{
+                        //if (isConnected == "true")
+                        //{
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-user-circle"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="#">Solde :</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#"></a>
+                                    <a class="dropdown-item" href="#"> @*@Html.ActionLink("Deconnexion", "Deconnexion", "Utilisateurs", new { @id = utilisateur.IdUtilisateur }, new { @class = "dropdown-item" })*@</a>
+                                </div>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Mon application ASP.NET</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
