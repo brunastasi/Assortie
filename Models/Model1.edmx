@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AssortieModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AssortieModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Adherent">
           <Key>
             <PropertyRef Name="IdAdherent" />
@@ -56,6 +56,7 @@
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="CapaciteMinimum" Type="int" Nullable="false" />
           <Property Name="CapaciteMaximum" Type="int" Nullable="false" />
+          <Property Name="Inscription" Type="bit" Nullable="false" />
         </EntityType>
         <!--Erreurs détectées durant la génération :
 avertissement 6002: La table/vue 'Assortie.dbo.SortieAdherent' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
@@ -194,8 +195,7 @@ avertissement 6002: La table/vue 'Assortie.dbo.SortieAdherent' n'a pas de clé p
             <End Role="SortieAdherent" EntitySet="SortieAdherent" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AssortieModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -261,6 +261,7 @@ avertissement 6002: La table/vue 'Assortie.dbo.SortieAdherent' n'a pas de clé p
           <Property Name="CapaciteMaximum" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Association" Relationship="Self.FK_Sortie_Association" FromRole="Sortie" ToRole="Association" />
           <NavigationProperty Name="SortieAdherents" Relationship="Self.FK_SortieAdherent_Sortie" FromRole="Sortie" ToRole="SortieAdherent" />
+          <Property Name="Inscription" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="SortieAdherent">
           <Key>
@@ -444,6 +445,7 @@ avertissement 6002: La table/vue 'Assortie.dbo.SortieAdherent' n'a pas de clé p
           <EntitySetMapping Name="Sorties">
             <EntityTypeMapping TypeName="AssortieModel.Sortie">
               <MappingFragment StoreEntitySet="Sortie">
+                <ScalarProperty Name="Inscription" ColumnName="Inscription" />
                 <ScalarProperty Name="IdSortie" ColumnName="IdSortie" />
                 <ScalarProperty Name="IdAssociation" ColumnName="IdAssociation" />
                 <ScalarProperty Name="Nom" ColumnName="Nom" />

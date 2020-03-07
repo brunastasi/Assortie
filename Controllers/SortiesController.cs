@@ -28,6 +28,19 @@ namespace Assortie.Controllers
             return RedirectToAction("Connexion", "Adherents");
         }
 
+        public ActionResult ListeSortiesAsso()
+        {
+            if (Session["Adherent"] != null)
+            {
+                Adherent adherent = (Adherent)Session["Adherent"];
+
+                var sorties = db.Sorties.Include(s => s.Association).Where(i => i.IdAssociation == adherent.IdAssociation);
+                return View(sorties.ToList());
+            }
+
+            return RedirectToAction("Connexion", "Adherents");
+        }
+
         // GET: Sorties/Details/5
         public ActionResult Details(int? id)
         {
@@ -41,6 +54,32 @@ namespace Assortie.Controllers
                 return HttpNotFound();
             }
             return View(sortie);
+        }
+
+        [HttpGet, ActionName("Participer")]
+        public ActionResult Participer(int idSortie, int? idAdherent)
+        {
+            Sortie sortie = db.Sorties.Find(idSortie);
+            sortie.Inscription = true;
+
+            Adherent adherent = db.Adherents.Find(idAdherent);
+            adherent.Solde -= sortie.Prix;
+
+            db.SaveChanges();
+            return RedirectToAction("Details/" + idSortie);
+        }
+
+        [HttpGet, ActionName("Annuler")]
+        public ActionResult Annuler(int idSortie, int? idAdherent)
+        {
+            Sortie sortie = db.Sorties.Find(idSortie);
+            sortie.Inscription = false;
+
+            Adherent adherent = db.Adherents.Find(idAdherent);
+            adherent.Solde += sortie.Prix;
+
+            db.SaveChanges();
+            return RedirectToAction("Details/" + idSortie);
         }
 
         // GET: Sorties/Create

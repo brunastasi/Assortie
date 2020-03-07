@@ -1,10 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string isConnected = Session["Adherent"] != null ? "true" : "false";
+
+    //AfpaMeal.Models.Utilisateur utilisateur = new AfpaMeal.Models.Utilisateur();
+    Assortie.Models.Adherent adherent = (Assortie.Models.Adherent)Session["Adherent"];
+
+}
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mon application ASP.NET</title>
+    <title>@ViewBag.Title - Assortie</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -24,47 +31,48 @@
                     @Html.ActionLink("Accueil", "Index", "Home", null, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item">
-                    @Html.ActionLink("Panier", "Panier", "Home", null, new { @class = "nav-link" })
+                    @Html.ActionLink("Liste des évènements", "Index", "Sorties", null, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item">
-                    @Html.ActionLink("Restaurants", "Details", "Restaurants", new { @Id = 2 }, new { @class = "nav-link" })
+                    @Html.ActionLink("Mes Sorties", "Index", "SortieAdherents", null, new { @class = "nav-link" })
                 </li>
             </ul>
             <div class="right-side d-flex">
-                <ul class="navbar-nav">
-                    <span class="navbar-text">
-                        @{
-
-                            @*if (isConnected == "true")
-                            {
-                                <div>Hey, @utilisateur.Prenom</div>
-
-                            }
-                            else
-                            {
-                                @Html.ActionLink("Connexion", "Connexion", "Utilisateurs", null, new { @class = "nav-link" })
-
-                            }*@
-
-                        }
-                    </span>
+                @*<div class="navbar-text"></div>*@
+                <div class="navbar-nav">
                     @{
-                        //if (isConnected == "true")
-                        //{
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-user-circle"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">Solde :</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#"></a>
-                                    <a class="dropdown-item" href="#"> @*@Html.ActionLink("Deconnexion", "Deconnexion", "Utilisateurs", new { @id = utilisateur.IdUtilisateur }, new { @class = "dropdown-item" })*@</a>
-                                </div>
-                            </li>
+                        if (isConnected == "true")
+                        {
+                            <div class="btn btn-sm btn-secondary mr-1"><i class="fa fa-money"></i> @adherent.Solde</div>
                         }
+
+                        if (isConnected == "true" && adherent.Responsable == true)
+                        {
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-info dropdown-toggle mr-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-user-md"></i> Responsable
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    @Html.ActionLink("Nouvel adhérent (OK)", "Create", "Adherents", null, new { @class = "dropdown-item" })
+                                    @Html.ActionLink("Nouvel Evènement (OK)", "Create", "Sorties", null, new { @class = "dropdown-item" })
+                                    <div class="dropdown-divider"></div>
+                                    @Html.ActionLink("Historique des transactions", "Index", "HistoriquePaiements", null, new { @class = "dropdown-item" })
+                                    <a class="dropdown-item" href="#">Participants Evènements (PAS OK)</a>
+                                </div>
+                            </div>
+                        }
+
+                        if (isConnected == "true")
+                        {
+                            @Html.ActionLink("Déconnexion", "Deconnexion", "Adherents", new { @id = adherent.IdAdherent }, new { @class = "btn btn-sm btn-danger" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Connexion", "Connexion", "Adherents", null, new { @class = "btn btn-sm btn-info" })
+                        }
+
                     }
-                </ul>
+                </div>
             </div>
         </div>
     </nav>
@@ -73,7 +81,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Mon application ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year - Assortie</p>
         </footer>
     </div>
 

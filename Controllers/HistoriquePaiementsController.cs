@@ -17,7 +17,9 @@ namespace Assortie.Controllers
         // GET: HistoriquePaiements
         public ActionResult Index()
         {
-            var historiquePaiements = db.HistoriquePaiements.Include(h => h.Adherent).Include(h => h.Association);
+            Adherent adherent = (Adherent)Session["Adherent"];
+
+            var historiquePaiements = db.HistoriquePaiements.Include(h => h.Adherent).Include(h => h.Association).Where(i => i.IdAssociation == adherent.IdAssociation);
             return View(historiquePaiements.ToList());
         }
 

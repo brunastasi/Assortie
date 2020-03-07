@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Assortie.Models;
 
 namespace Assortie.Controllers
@@ -42,7 +43,7 @@ namespace Assortie.Controllers
 
                     Session["Adherent"] = adherent;
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Sorties");
                 }
                 else
                 {
@@ -51,6 +52,27 @@ namespace Assortie.Controllers
             }
 
             return View();
+        }
+
+        public ActionResult Deconnexion(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Adherent adherent = db.Adherents.Find(id);
+
+            if (id != null)
+            {
+                if (Session["Adherent"] != null)
+                {
+                    FormsAuthentication.SignOut();
+                    Session.Clear();
+                    Session.RemoveAll();
+                    Session.Abandon();
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Adherents/Details/5

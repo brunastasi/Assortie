@@ -2,81 +2,44 @@
 
 @{
     ViewBag.Title = "Details";
+    Assortie.Models.Adherent adherent = (Assortie.Models.Adherent)Session["Adherent"];
 }
 
-<h2>Details</h2>
+<div class="row justify-content-center align-content-center">
+    <div class="card" style="width: 20rem;">
+        <img class="card-img-top" src="@Html.DisplayFor(model => model.Photo)" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">@Html.DisplayFor(model => model.Nom)</h5>
+            <span class="badge badge-warning">@Html.DisplayFor(model => model.Prix) €</span>
+            <span class="badge badge-info">Evènement le : @Html.DisplayFor(model => model.Date)</span>
+            <span class="badge badge-primary">Peut accueillir : @Html.DisplayFor(model => model.CapaciteMaximum) personnes</span>
+            <span class="badge badge-secondary">Association : @Html.DisplayFor(model => model.Association.Nom)</span>
+            <p class="card-text">@Html.DisplayFor(model => model.Description)</p>
 
-<div>
-    <h4>Sortie</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nom)
-        </dt>
+            @if (adherent.Solde >= Model.Prix)
+            {
+                if (Model.Inscription is true)
+                {
+                    <a href="@Url.Action("Annuler", "Sorties", new { idSortie = Model.IdSortie, idAdherent = adherent.IdAdherent })" title="Annuler" class="btn btn-sm btn-danger">Annuler</a>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nom)
-        </dd>
+                }
+                else
+                {
+                    <a href="@Url.Action("Participer", "Sorties", new { idSortie = Model.IdSortie, idAdherent = adherent.IdAdherent })" title="Participer" class="btn btn-sm btn-warning">Participer (-@Model.Prix €) </a>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Prix)
-        </dt>
+                }
+            }
+            else
+            {
+                @*<div class="btn btn-secondary">Solde insuffisant !</div>*@
+            }
 
-        <dd>
-            @Html.DisplayFor(model => model.Prix)
-        </dd>
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+    @*<p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.IdSortie }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>*@
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Photo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Photo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CapaciteMinimum)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CapaciteMinimum)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CapaciteMaximum)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CapaciteMaximum)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Association.Nom)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Association.Nom)
-        </dd>
-
-    </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdSortie }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
