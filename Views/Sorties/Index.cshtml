@@ -38,38 +38,52 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nom)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Prix)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Photo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CapaciteMinimum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CapaciteMaximum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Association.Nom)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdSortie }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdSortie }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdSortie })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prix)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Photo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CapaciteMinimum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CapaciteMaximum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Association.Nom)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IdSortie }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IdSortie }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdSortie })
+            </td>
+        </tr>
+
+        <div class="card" style="width: 20rem;">
+            <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.Photo)" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nom)</h5>
+                <span class="badge badge-warning">@Html.DisplayFor(modelItem => item.Prix) €</span>
+                <span class="badge badge-info">Evènement le : @Html.DisplayFor(modelItem => item.Date)</span>
+                <span class="badge badge-primary">Peut accueillir de : @Html.DisplayFor(modelItem => item.CapaciteMinimum) personnes</span>
+                <span class="badge badge-primary">Peut accueillir : @Html.DisplayFor(modelItem => item.CapaciteMaximum) personnes</span>
+                <span class="badge badge-secondary">Association : @Html.DisplayFor(modelItem => item.Association.Nom)</span>
+                <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+            </div>
+        </div>
+    }
 
 </table>

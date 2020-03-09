@@ -65,18 +65,39 @@ namespace Assortie.Controllers
             Adherent adherent = db.Adherents.Find(idAdherent);
             adherent.Solde -= sortie.Prix;
 
+            SortieAdherent sortieAdherent = new SortieAdherent();
+            sortieAdherent.Association = adherent.Association;
+            sortieAdherent.Adherent = adherent;
+            sortieAdherent.Sortie = sortie;
+            db.SortieAdherents.Add(sortieAdherent);
+
+            HistoriquePaiement historiquePaiement = new HistoriquePaiement();
+            historiquePaiement.Adherent = adherent;
+            historiquePaiement.Association = adherent.Association;
+            historiquePaiement.Paiement = sortie.Prix;
+            historiquePaiement.Date = DateTime.Now;
+
+            db.HistoriquePaiements.Add(historiquePaiement);
+
             db.SaveChanges();
             return RedirectToAction("Details/" + idSortie);
         }
 
         [HttpGet, ActionName("Annuler")]
-        public ActionResult Annuler(int idSortie, int? idAdherent)
+        public ActionResult Annuler(int idSortie, int? idAdherent, int? idHistoriquePaiement)
         {
+            idHistoriquePaiement = 4;
             Sortie sortie = db.Sorties.Find(idSortie);
             sortie.Inscription = false;
 
             Adherent adherent = db.Adherents.Find(idAdherent);
             adherent.Solde += sortie.Prix;
+
+            SortieAdherent sortieAdherent = db.SortieAdherents.Find(idSortie, idAdherent, adherent.IdAssociation);
+            db.SortieAdherents.Remove(sortieAdherent);
+
+            //HistoriquePaiement historiquePaiement = db.HistoriquePaiements.Find(idHistoriquePaiement);
+            //db.HistoriquePaiements.Remove(historiquePaiement);
 
             db.SaveChanges();
             return RedirectToAction("Details/" + idSortie);
