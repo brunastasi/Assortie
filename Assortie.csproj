@@ -345,9 +345,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Adherents\Create.cshtml" />
-    <Content Include="Views\Adherents\Delete.cshtml" />
     <Content Include="Views\Adherents\Details.cshtml" />
-    <Content Include="Views\Adherents\Edit.cshtml" />
     <Content Include="Views\Adherents\Index.cshtml" />
     <Content Include="Views\Associations\Create.cshtml" />
     <Content Include="Views\Associations\Delete.cshtml" />
@@ -359,16 +357,10 @@
     <Content Include="Views\Sorties\Details.cshtml" />
     <Content Include="Views\Sorties\Edit.cshtml" />
     <Content Include="Views\Sorties\Index.cshtml" />
-    <Content Include="Views\HistoriquePaiements\Create.cshtml" />
     <Content Include="Views\HistoriquePaiements\Delete.cshtml" />
-    <Content Include="Views\HistoriquePaiements\Details.cshtml" />
-    <Content Include="Views\HistoriquePaiements\Edit.cshtml" />
     <Content Include="Views\HistoriquePaiements\Index.cshtml" />
     <Content Include="Views\Adherents\Connexion.cshtml" />
-    <Content Include="Views\SortieAdherents\Create.cshtml" />
     <Content Include="Views\SortieAdherents\Delete.cshtml" />
-    <Content Include="Views\SortieAdherents\Details.cshtml" />
-    <Content Include="Views\SortieAdherents\Edit.cshtml" />
     <Content Include="Views\SortieAdherents\Index.cshtml" />
     <Content Include="Views\Sorties\ListeSortiesAsso.cshtml" />
   </ItemGroup>
