@@ -197,8 +197,8 @@
     <Content Include="Images\escape.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
       <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -363,6 +363,9 @@
     <Content Include="Views\SortieAdherents\Delete.cshtml" />
     <Content Include="Views\SortieAdherents\Index.cshtml" />
     <Content Include="Views\Sorties\ListeSortiesAsso.cshtml" />
+    <Content Include="Views\Shared\_Responsable.cshtml" />
+    <Content Include="Views\Shared\_Index.cshtml" />
+    <Content Include="Views\Shared\_Adherents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -27,7 +27,7 @@ namespace Assortie.Models
         public string Description { get; set; }
         public string Photo { get; set; }
         public System.DateTime Date { get; set; }
-        public int CapaciteMinimum { get; set; }
+        public int CapaciteActuelle { get; set; }
         public int CapaciteMaximum { get; set; }
         public bool Inscription { get; set; }
     

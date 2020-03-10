@@ -13,7 +13,7 @@
                 <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nom) @Html.ActionLink("Edit", "Edit", new { id = item.IdSortie })</h5>
                 <span class="badge badge-warning">@Html.DisplayFor(modelItem => item.Prix) €</span>
                 <span class="badge badge-info">Evènement le : @Html.DisplayFor(modelItem => item.Date)</span>
-                <span class="badge badge-primary">Peut accueillir : @Html.DisplayFor(modelItem => item.CapaciteMinimum) à @Html.DisplayFor(modelItem => item.CapaciteMaximum) personnes</span>
+                <span class="badge badge-primary">Peut accueillir @Html.DisplayFor(modelItem => item.CapaciteMaximum) personnes maximum</span>
                 <span class="badge badge-secondary">Association : @Html.DisplayFor(modelItem => item.Association.Nom)</span>
                 <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
             </div>

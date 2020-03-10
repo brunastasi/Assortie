@@ -60,7 +60,11 @@ namespace Assortie.Controllers
         public ActionResult Participer(int idSortie, int? idAdherent)
         {
             Sortie sortie = db.Sorties.Find(idSortie);
-            sortie.Inscription = true;
+
+            if (sortie.CapaciteActuelle != sortie.CapaciteMaximum)
+            {
+                sortie.CapaciteActuelle++;
+            }
 
             Adherent adherent = db.Adherents.Find(idAdherent);
             adherent.Solde -= sortie.Prix;

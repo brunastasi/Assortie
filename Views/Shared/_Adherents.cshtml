@@ -1,0 +1,38 @@
+﻿@{
+    string isConnected = Session["Adherent"] != null ? "true" : "false";
+    Assortie.Models.Adherent adherent = (Assortie.Models.Adherent)Session["Adherent"];
+}
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">
+        @*<img src="~/images/logo_white.png" width="30" height="30" alt="logo">*@
+        @Html.ActionLink("Assortie", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-list">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                @Html.ActionLink("Accueil", "Index", "Home", null, new { @class = "nav-link" })
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("Liste des évènements", "Index", "Sorties", null, new { @class = "nav-link" })
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("Mes Sorties", "Index", "SortieAdherents", null, new { @class = "nav-link" })
+            </li>
+        </ul>
+        <div class="right-side d-flex">
+            @*<div class="navbar-text"></div>*@
+            <div class="navbar-nav">
+
+                    <div class="btn btn-sm btn-secondary mr-1"><i class="fa fa-money"></i> @adherent.Solde</div>
+
+                    @Html.ActionLink("Déconnexion", "Deconnexion", "Adherents", new { @id = adherent.IdAdherent }, new { @class = "btn btn-sm btn-danger" })
+
+
+            </div>
+        </div>
+    </div>
+</nav>

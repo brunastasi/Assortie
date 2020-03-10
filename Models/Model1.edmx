@@ -54,7 +54,7 @@
           <Property Name="Description" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="Photo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Date" Type="date" Nullable="false" />
-          <Property Name="CapaciteMinimum" Type="int" Nullable="false" />
+          <Property Name="CapaciteActuelle" Type="int" Nullable="false" />
           <Property Name="CapaciteMaximum" Type="int" Nullable="false" />
           <Property Name="Inscription" Type="bit" Nullable="false" />
         </EntityType>
@@ -292,7 +292,7 @@
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Photo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CapaciteMinimum" Type="Int32" Nullable="false" />
+          <Property Name="CapaciteActuelle" Type="Int32" Nullable="false" />
           <Property Name="CapaciteMaximum" Type="Int32" Nullable="false" />
           <Property Name="Inscription" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Association" Relationship="Self.FK_Sortie_Association" FromRole="Sortie" ToRole="Association" />
@@ -539,7 +539,7 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="CapaciteMinimum" ColumnName="CapaciteMinimum" />
+                <ScalarProperty Name="CapaciteActuelle" ColumnName="CapaciteActuelle" />
                 <ScalarProperty Name="CapaciteMaximum" ColumnName="CapaciteMaximum" />
                 <ScalarProperty Name="Inscription" ColumnName="Inscription" />
               </MappingFragment>

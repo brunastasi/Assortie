@@ -18,15 +18,22 @@
 
             @if (adherent.Solde >= Model.Prix)
             {
-                if (Model.Inscription is true)
+                if (Model.CapaciteActuelle <= Model.CapaciteMaximum)
                 {
-                    <a href="@Url.Action("Annuler", "Sorties", new { idSortie = Model.IdSortie, idAdherent = adherent.IdAdherent })" title="Annuler" class="btn btn-sm btn-danger">Annuler</a>
+                    if (Model.Inscription is true)
+                    {
+                        <a href="@Url.Action("Annuler", "Sorties", new { idSortie = Model.IdSortie, idAdherent = adherent.IdAdherent })" title="Annuler" class="btn btn-sm btn-danger">Annuler</a>
 
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Participer", "Sorties", new { idSortie = Model.IdSortie, idAdherent = adherent.IdAdherent, idAssociation = Model.IdAssociation, idHistoriquePaiement = 3 })" title="Participer" class="btn btn-sm btn-warning">Participer (-@Model.Prix €) </a>
+
+                    }
                 }
                 else
                 {
-                    <a href="@Url.Action("Participer", "Sorties", new { idSortie = Model.IdSortie, idAdherent = adherent.IdAdherent, idAssociation = Model.IdAssociation, idHistoriquePaiement = 3 })" title="Participer" class="btn btn-sm btn-warning">Participer (-@Model.Prix €) </a>
-
+                    <div>PLEIN</div>
                 }
             }
             else
