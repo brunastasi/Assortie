@@ -34,11 +34,11 @@
                             <i class="fa fa-user-md"></i> Responsable
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            @Html.ActionLink("Nouvel adhérent (OK)", "Create", "Adherents", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Nouvel Evènement (OK)", "Create", "Sorties", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Nouvel adhérent", "Create", "Adherents", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Nouvel Evènement", "Create", "Sorties", null, new { @class = "dropdown-item" })
                             <div class="dropdown-divider"></div>
                             @Html.ActionLink("Historique des transactions", "Index", "HistoriquePaiements", null, new { @class = "dropdown-item" })
-                            <a class="dropdown-item" href="#">Participants Evènements (PAS OK)</a>
+                            <a class="dropdown-item" href="#" disabled>Participants Evènements</a>
                         </div>
                     </div>
 
