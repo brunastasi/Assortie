@@ -19,6 +19,7 @@ namespace Assortie.Models
         public int IdAssociation { get; set; }
         public decimal Paiement { get; set; }
         public System.DateTime Date { get; set; }
+        public int IdSortie { get; set; }
     
         public virtual Adherent Adherent { get; set; }
         public virtual Association Association { get; set; }

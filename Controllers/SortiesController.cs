@@ -64,38 +64,35 @@ namespace Assortie.Controllers
             if (sortie.CapaciteActuelle != sortie.CapaciteMaximum)
             {
                 sortie.CapaciteActuelle++;
+                db.SaveChanges();
             }
 
             Adherent adherent = db.Adherents.Find(idAdherent);
             adherent.Solde -= sortie.Prix;
+            db.SaveChanges();
 
             SortieAdherent existSortieAdherent = db.SortieAdherents.Find(idSortie, idAdherent, idAssociation);
-            SortieAdherent sortieAdherent = new SortieAdherent();
 
-            if (existSortieAdherent != null)
+            if (existSortieAdherent == null)
             {
-                if (existSortieAdherent.IdSortie != sortieAdherent.IdSortie && existSortieAdherent.IdAdherent != sortieAdherent.IdAdherent && existSortieAdherent.IdAssociation != sortie.IdAssociation)
-                {
-                    sortieAdherent.Association = adherent.Association;
-                    sortieAdherent.Adherent = adherent;
-                    sortieAdherent.Sortie = sortie;
-                    db.SortieAdherents.Add(sortieAdherent);
-                }
+                SortieAdherent sortieAdherent = new SortieAdherent();
+                sortieAdherent.IdAssociation = adherent.Association.IdAssociation;
+                sortieAdherent.IdAdherent = adherent.IdAdherent;
+                sortieAdherent.IdSortie = sortie.IdSortie;
+                db.SortieAdherents.Add(sortieAdherent);
             }
 
-            HistoriquePaiement existePaiement = db.HistoriquePaiements.Find(idHistoriquePaiement);
-            HistoriquePaiement historiquePaiement = new HistoriquePaiement();
+            HistoriquePaiement existePaiement = db.HistoriquePaiements.Where(a => a.IdAdherent == adherent.IdAdherent && a.IdSortie == idSortie).SingleOrDefault();
 
-            if (existePaiement != null)
+            if (existePaiement == null)
             {
-                if (existePaiement.IdHistoriquePaiement != historiquePaiement.IdHistoriquePaiement)
-                {
-                    historiquePaiement.Adherent = adherent;
-                    historiquePaiement.Association = adherent.Association;
-                    historiquePaiement.Paiement = sortie.Prix;
-                    historiquePaiement.Date = DateTime.Now;
-                    db.HistoriquePaiements.Add(historiquePaiement);
-                }
+                HistoriquePaiement historiquePaiement = new HistoriquePaiement();
+                historiquePaiement.Adherent = adherent;
+                historiquePaiement.Association = adherent.Association;
+                historiquePaiement.Paiement = sortie.Prix;
+                historiquePaiement.Date = DateTime.Now;
+                historiquePaiement.IdSortie = idSortie;
+                db.HistoriquePaiements.Add(historiquePaiement);
             }
 
             db.SaveChanges();
@@ -113,7 +110,6 @@ namespace Assortie.Controllers
             }
 
             Adherent adherent = db.Adherents.Find(idAdherent);
-            adherent.Solde += sortie.Prix;
 
             SortieAdherent sortieAdherent = db.SortieAdherents.Find(idSortie, idAdherent, adherent.IdAssociation);
 
@@ -122,8 +118,12 @@ namespace Assortie.Controllers
                 db.SortieAdherents.Remove(sortieAdherent);
             }
 
-            //HistoriquePaiement historiquePaiement = db.HistoriquePaiements.Find(idHistoriquePaiement);
-            //db.HistoriquePaiements.Remove(historiquePaiement);
+            HistoriquePaiement historiquePaiement = db.HistoriquePaiements.Where(a => a.IdAdherent == adherent.IdAdherent && a.IdSortie == idSortie).SingleOrDefault();
+            if (historiquePaiement != null)
+            {
+                db.HistoriquePaiements.Remove(historiquePaiement);
+                adherent.Solde += sortie.Prix;
+            }
 
             db.SaveChanges();
             return RedirectToAction("Details/" + idSortie);
