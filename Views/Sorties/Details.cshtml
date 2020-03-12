@@ -17,7 +17,7 @@
             <span class="badge badge-secondary">Association : @Html.DisplayFor(model => model.Association.Nom)</span>
             <p class="card-text">@Html.DisplayFor(model => model.Description)</p>
 
-            @{ 
+            @{
                 if (adherent.Solde >= Model.Prix)
                 {
                     if (Model.CapaciteActuelle < Model.CapaciteMaximum)
@@ -50,7 +50,6 @@
 
             }
 
-
         </div>
     </div>
 
@@ -60,3 +59,4 @@
         </p>*@
 
 </div>
+

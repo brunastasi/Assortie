@@ -99,6 +99,50 @@ namespace Assortie.Controllers
             return RedirectToAction("Details/" + idSortie);
         }
 
+        ////[HttpGet, ActionName("Participer")]
+        //public JsonResult Participer(int idSortie, int? idAdherent, int? idAssociation, int? idHistoriquePaiement)
+        //{
+        //    Sortie sortie = db.Sorties.Find(idSortie);
+        //    sortie.Inscription = true;
+        //    if (sortie.CapaciteActuelle != sortie.CapaciteMaximum)
+        //    {
+        //        sortie.CapaciteActuelle++;
+        //        db.SaveChanges();
+        //    }
+
+        //    Adherent adherent = db.Adherents.Find(idAdherent);
+        //    adherent.Solde -= sortie.Prix;
+        //    db.SaveChanges();
+
+        //    SortieAdherent existSortieAdherent = db.SortieAdherents.Find(idSortie, idAdherent, idAssociation);
+
+        //    if (existSortieAdherent == null)
+        //    {
+        //        SortieAdherent sortieAdherent = new SortieAdherent();
+        //        sortieAdherent.IdAssociation = adherent.Association.IdAssociation;
+        //        sortieAdherent.IdAdherent = adherent.IdAdherent;
+        //        sortieAdherent.IdSortie = sortie.IdSortie;
+        //        db.SortieAdherents.Add(sortieAdherent);
+        //    }
+
+        //    HistoriquePaiement existePaiement = db.HistoriquePaiements.Where(a => a.IdAdherent == adherent.IdAdherent && a.IdSortie == idSortie).SingleOrDefault();
+
+        //    if (existePaiement == null)
+        //    {
+        //        HistoriquePaiement historiquePaiement = new HistoriquePaiement();
+        //        historiquePaiement.Adherent = adherent;
+        //        historiquePaiement.Association = adherent.Association;
+        //        historiquePaiement.Paiement = sortie.Prix;
+        //        historiquePaiement.Date = DateTime.Now;
+        //        historiquePaiement.IdSortie = idSortie;
+        //        db.HistoriquePaiements.Add(historiquePaiement);
+        //    }
+
+        //    db.SaveChanges();
+        //   // return RedirectToAction("Details/" + idSortie);
+        //    return Json(new { idSortie }, JsonRequestBehavior.AllowGet);
+        //}
+
         [HttpGet, ActionName("Annuler")]
         public ActionResult Annuler(int idSortie, int? idAdherent, int? idHistoriquePaiement)
         {
