@@ -41,6 +41,18 @@ namespace Assortie.Controllers
             return RedirectToAction("Connexion", "Adherents");
         }
 
+        public ActionResult MesSorties()
+        {
+            if (Session["Adherent"] != null)
+            {
+                Adherent adherent = (Adherent)Session["Adherent"];
+
+                var sortieAdherents = db.SortieAdherents.Include(s => s.Adherent).Include(s => s.Association).Include(s => s.Sortie).Where(i => i.IdAssociation == adherent.IdAssociation && i.IdAdherent == adherent.IdAdherent);
+                return View(sortieAdherents.ToList());
+            }
+            return RedirectToAction("Connexion", "Adherents");
+        }
+
         // GET: Sorties/Details/5
         public ActionResult Details(int? id)
         {
@@ -60,19 +72,15 @@ namespace Assortie.Controllers
         public ActionResult Participer(int idSortie, int? idAdherent, int? idAssociation, int? idHistoriquePaiement)
         {
             Sortie sortie = db.Sorties.Find(idSortie);
-            sortie.Inscription = true;
             if (sortie.CapaciteActuelle != sortie.CapaciteMaximum)
             {
                 sortie.CapaciteActuelle++;
-                db.SaveChanges();
             }
 
             Adherent adherent = db.Adherents.Find(idAdherent);
             adherent.Solde -= sortie.Prix;
-            db.SaveChanges();
 
             SortieAdherent existSortieAdherent = db.SortieAdherents.Find(idSortie, idAdherent, idAssociation);
-
             if (existSortieAdherent == null)
             {
                 SortieAdherent sortieAdherent = new SortieAdherent();
@@ -83,7 +91,6 @@ namespace Assortie.Controllers
             }
 
             HistoriquePaiement existePaiement = db.HistoriquePaiements.Where(a => a.IdAdherent == adherent.IdAdherent && a.IdSortie == idSortie).SingleOrDefault();
-
             if (existePaiement == null)
             {
                 HistoriquePaiement historiquePaiement = new HistoriquePaiement();
@@ -99,55 +106,10 @@ namespace Assortie.Controllers
             return RedirectToAction("Details/" + idSortie);
         }
 
-        ////[HttpGet, ActionName("Participer")]
-        //public JsonResult Participer(int idSortie, int? idAdherent, int? idAssociation, int? idHistoriquePaiement)
-        //{
-        //    Sortie sortie = db.Sorties.Find(idSortie);
-        //    sortie.Inscription = true;
-        //    if (sortie.CapaciteActuelle != sortie.CapaciteMaximum)
-        //    {
-        //        sortie.CapaciteActuelle++;
-        //        db.SaveChanges();
-        //    }
-
-        //    Adherent adherent = db.Adherents.Find(idAdherent);
-        //    adherent.Solde -= sortie.Prix;
-        //    db.SaveChanges();
-
-        //    SortieAdherent existSortieAdherent = db.SortieAdherents.Find(idSortie, idAdherent, idAssociation);
-
-        //    if (existSortieAdherent == null)
-        //    {
-        //        SortieAdherent sortieAdherent = new SortieAdherent();
-        //        sortieAdherent.IdAssociation = adherent.Association.IdAssociation;
-        //        sortieAdherent.IdAdherent = adherent.IdAdherent;
-        //        sortieAdherent.IdSortie = sortie.IdSortie;
-        //        db.SortieAdherents.Add(sortieAdherent);
-        //    }
-
-        //    HistoriquePaiement existePaiement = db.HistoriquePaiements.Where(a => a.IdAdherent == adherent.IdAdherent && a.IdSortie == idSortie).SingleOrDefault();
-
-        //    if (existePaiement == null)
-        //    {
-        //        HistoriquePaiement historiquePaiement = new HistoriquePaiement();
-        //        historiquePaiement.Adherent = adherent;
-        //        historiquePaiement.Association = adherent.Association;
-        //        historiquePaiement.Paiement = sortie.Prix;
-        //        historiquePaiement.Date = DateTime.Now;
-        //        historiquePaiement.IdSortie = idSortie;
-        //        db.HistoriquePaiements.Add(historiquePaiement);
-        //    }
-
-        //    db.SaveChanges();
-        //   // return RedirectToAction("Details/" + idSortie);
-        //    return Json(new { idSortie }, JsonRequestBehavior.AllowGet);
-        //}
-
         [HttpGet, ActionName("Annuler")]
-        public ActionResult Annuler(int idSortie, int? idAdherent, int? idHistoriquePaiement)
+        public ActionResult Annuler(int idSortie, int? idAdherent,int? idAssociation, int? idHistoriquePaiement)
         {
             Sortie sortie = db.Sorties.Find(idSortie);
-            sortie.Inscription = false;
             if (sortie.CapaciteActuelle > 0)
             {
                 sortie.CapaciteActuelle--;
@@ -155,8 +117,7 @@ namespace Assortie.Controllers
 
             Adherent adherent = db.Adherents.Find(idAdherent);
 
-            SortieAdherent sortieAdherent = db.SortieAdherents.Find(idSortie, idAdherent, adherent.IdAssociation);
-
+            SortieAdherent sortieAdherent = db.SortieAdherents.Find(idSortie, idAdherent, idAssociation);
             if (sortieAdherent != null)
             {
                 db.SortieAdherents.Remove(sortieAdherent);
@@ -196,65 +157,6 @@ namespace Assortie.Controllers
 
             ViewBag.IdAssociation = new SelectList(db.Associations, "IdAssociation", "Nom", sortie.IdAssociation);
             return View(sortie);
-        }
-
-        // GET: Sorties/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Sortie sortie = db.Sorties.Find(id);
-            if (sortie == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.IdAssociation = new SelectList(db.Associations, "IdAssociation", "Nom", sortie.IdAssociation);
-            return View(sortie);
-        }
-
-        // POST: Sorties/Edit/5
-        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
-        // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdSortie,IdAssociation,Nom,Prix,Description,Photo,Date,CapaciteMinimum,CapaciteMaximum")] Sortie sortie)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(sortie).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.IdAssociation = new SelectList(db.Associations, "IdAssociation", "Nom", sortie.IdAssociation);
-            return View(sortie);
-        }
-
-        // GET: Sorties/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Sortie sortie = db.Sorties.Find(id);
-            if (sortie == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sortie);
-        }
-
-        // POST: Sorties/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Sortie sortie = db.Sorties.Find(id);
-            db.Sorties.Remove(sortie);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

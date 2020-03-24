@@ -3,17 +3,16 @@
 @{
     ViewBag.Title = "Details";
     Assortie.Models.Adherent adherent = (Assortie.Models.Adherent)Session["Adherent"];
-    //Assortie.Models.SortieAdherent sortieAdherent = (Assortie.Models.SortieAdherent)Session["Adherent"];
 }
 
 <div class="row justify-content-center align-content-center">
-    <div class="card" style="width: 500;">
-        <img class="card-img-top" src="@Html.DisplayFor(model => model.Photo)" alt="Card image cap" style="height: 300px;">
+    <div class="card" style="max-width:600px;">
+        <img class="card-img-top" src="@Html.DisplayFor(model => model.Photo)" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">@Html.DisplayFor(model => model.Nom)</h5>
             <span class="badge badge-warning">@Html.DisplayFor(model => model.Prix) €</span>
             <span class="badge badge-info">Evènement le : @Html.DisplayFor(model => model.Date)</span>
-            <span class="badge badge-primary">Peut accueillir : @Html.DisplayFor(model => model.CapaciteMaximum) personnes</span>
+            <span class="badge badge-primary"><i class="fa fa-user"></i> @Html.DisplayFor(model => model.CapaciteMaximum) maximum</span>
             <span class="badge badge-secondary">Association : @Html.DisplayFor(model => model.Association.Nom)</span>
             <p class="card-text">@Html.DisplayFor(model => model.Description)</p>
 
@@ -22,21 +21,21 @@
                 {
                     if (Model.CapaciteActuelle < Model.CapaciteMaximum)
                     {
-                        if (Model.Inscription is true)
+                        if (Model.SortieAdherents.FirstOrDefault(i => i.IdAdherent == adherent.IdAdherent) != null)
                         {
-                            <a href="@Url.Action("Annuler", "Sorties", new { idSortie = Model.IdSortie, idAdherent = adherent.IdAdherent })" title="Annuler" class="btn btn-sm btn-danger">Annuler</a>
+                            <a href="@Url.Action("Annuler", "Sorties", new { idSortie = Model.IdSortie, idAdherent = adherent.IdAdherent, idAssociation = adherent.IdAssociation })" title="Annuler" class="btn btn-sm btn-danger">Annuler</a>
 
                         }
                         else
                         {
-                            <a href="@Url.Action("Participer", "Sorties", new { idSortie = Model.IdSortie, idAdherent = adherent.IdAdherent, idAssociation = Model.IdAssociation  })" title="Participer" class="btn btn-sm btn-warning">Participer (-@Model.Prix €) </a>
+                            <a href="@Url.Action("Participer", "Sorties", new { idSortie = Model.IdSortie, idAdherent = adherent.IdAdherent, idAssociation = adherent.IdAssociation  })" title="Participer" class="btn btn-sm btn-warning">Participer (-@Model.Prix €) </a>
 
                         }
                     }
                     else
                     {
                         <div class="btn btn-danger">COMPLET</div>
-                        if (Model.Inscription is true)
+                        if (Model.SortieAdherents.FirstOrDefault(i => i.IdAdherent == adherent.IdAdherent) != null)
                         {
                             <a href="@Url.Action("Annuler", "Sorties", new { idSortie = Model.IdSortie, idAdherent = adherent.IdAdherent })" title="Annuler" class="btn btn-danger">Annuler</a>
 
@@ -49,14 +48,7 @@
                 }
 
             }
-
         </div>
     </div>
-
-    @*<p>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.IdSortie }) |
-            @Html.ActionLink("Back to List", "Index")
-        </p>*@
-
 </div>
 

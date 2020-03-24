@@ -4,12 +4,9 @@
     ViewBag.Title = "ListeSortiesAsso";
 }
 
-<h2>ListeSortiesAsso</h2>
+<h3>Liste des sorties correspondant à votre association</h3>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<table class="table table-striped table-bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nom)
@@ -33,12 +30,8 @@
             @Html.DisplayNameFor(model => model.CapaciteMaximum)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Inscription)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Association.Nom)
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -53,10 +46,11 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Photo)
+            <img src="@Html.DisplayFor(modelItem => item.Photo)" height="100px" width="200px" alt="Card image cap">
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Date)
+            @if (item.Date != null)
+            {@item.Date.ToString("dd/MM/yyyy")}
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CapaciteActuelle)
@@ -65,15 +59,7 @@
             @Html.DisplayFor(modelItem => item.CapaciteMaximum)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Inscription)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Association.Nom)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdSortie }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdSortie }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdSortie })
         </td>
     </tr>
 }

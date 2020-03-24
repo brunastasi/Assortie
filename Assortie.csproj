@@ -135,7 +135,6 @@
     <Compile Include="Controllers\AssociationsController.cs" />
     <Compile Include="Controllers\HistoriquePaiementsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\SortieAdherentsController.cs" />
     <Compile Include="Controllers\SortiesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -170,6 +169,15 @@
     <Compile Include="Models\SortieAdherent.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -185,7 +193,13 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\abeilles.jpg" />
     <Content Include="Images\escape.jpg" />
+    <Content Include="Images\logo.png" />
+    <Content Include="Images\logo_bleu.png" />
+    <Content Include="Images\logo_simple.png" />
+    <Content Include="Images\singes.jpg" />
+    <Content Include="Images\violon.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -336,27 +350,17 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Adherents\Create.cshtml" />
-    <Content Include="Views\Adherents\Details.cshtml" />
-    <Content Include="Views\Adherents\Index.cshtml" />
     <Content Include="Views\Associations\Create.cshtml" />
-    <Content Include="Views\Associations\Delete.cshtml" />
-    <Content Include="Views\Associations\Details.cshtml" />
-    <Content Include="Views\Associations\Edit.cshtml" />
-    <Content Include="Views\Associations\Index.cshtml" />
     <Content Include="Views\Sorties\Create.cshtml" />
-    <Content Include="Views\Sorties\Delete.cshtml" />
     <Content Include="Views\Sorties\Details.cshtml" />
-    <Content Include="Views\Sorties\Edit.cshtml" />
     <Content Include="Views\Sorties\Index.cshtml" />
-    <Content Include="Views\HistoriquePaiements\Delete.cshtml" />
     <Content Include="Views\HistoriquePaiements\Index.cshtml" />
     <Content Include="Views\Adherents\Connexion.cshtml" />
-    <Content Include="Views\SortieAdherents\Delete.cshtml" />
-    <Content Include="Views\SortieAdherents\Index.cshtml" />
     <Content Include="Views\Sorties\ListeSortiesAsso.cshtml" />
     <Content Include="Views\Shared\_Responsable.cshtml" />
     <Content Include="Views\Shared\_Index.cshtml" />
     <Content Include="Views\Shared\_Adherents.cshtml" />
+    <Content Include="Views\Sorties\MesSorties.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

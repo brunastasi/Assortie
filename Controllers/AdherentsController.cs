@@ -15,13 +15,6 @@ namespace Assortie.Controllers
     {
         private AssortieEntities db = new AssortieEntities();
 
-        // GET: Adherents
-        public ActionResult Index()
-        {
-            var adherents = db.Adherents.Include(a => a.Association);
-            return View(adherents.ToList());
-        }
-
         public ActionResult Connexion()
         {
             return View();
@@ -73,21 +66,6 @@ namespace Assortie.Controllers
                 }
             }
             return RedirectToAction("Index", "Home");
-        }
-
-        // GET: Adherents/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Adherent adherent = db.Adherents.Find(id);
-            if (adherent == null)
-            {
-                return HttpNotFound();
-            }
-            return View(adherent);
         }
 
         // GET: Adherents/Create

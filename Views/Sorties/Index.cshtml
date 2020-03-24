@@ -13,7 +13,8 @@
                 <h5 class="card-title">@Html.ActionLink(item.Nom, "Details", new { id = item.IdSortie })</h5>
                 <span class="badge badge-secondary">Association : @Html.DisplayFor(modelItem => item.Association.Nom)</span>
                 <span class="badge badge-warning">@Html.DisplayFor(modelItem => item.Prix) €</span>
-                <span class="badge badge-info">Evènement le : @Html.DisplayFor(modelItem => item.Date)</span>
+                @*<span class="badge badge-info">Evènement le : @if (item.Date != null) {@item.Date.ToString("dd/MM/yyyy")}</span>*@
+                <span class="badge badge-light"><i class="fa fa-user"></i> @Html.DisplayFor(modelItem => item.CapaciteActuelle)</span>
                 <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
             </div>
         </div>

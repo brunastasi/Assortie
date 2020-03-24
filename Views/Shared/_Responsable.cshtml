@@ -5,7 +5,7 @@
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#">
-        @*<img src="~/images/logo_white.png" width="30" height="30" alt="logo">*@
+        <img src="~/images/logo_simple.png" width="35" height="35" alt="logo">
         @Html.ActionLink("Assortie", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,7 +20,7 @@
                 @Html.ActionLink("Liste des évènements", "Index", "Sorties", null, new { @class = "nav-link" })
             </li>
             <li class="nav-item">
-                @Html.ActionLink("Mes Sorties", "Index", "SortieAdherents", null, new { @class = "nav-link" })
+                @Html.ActionLink("Mes Sorties", "MesSorties", "Sorties", null, new { @class = "nav-link" })
             </li>
         </ul>
         <div class="right-side d-flex">
@@ -38,7 +38,7 @@
                             @Html.ActionLink("Nouvel Evènement", "Create", "Sorties", null, new { @class = "dropdown-item" })
                             <div class="dropdown-divider"></div>
                             @Html.ActionLink("Historique des transactions", "Index", "HistoriquePaiements", null, new { @class = "dropdown-item" })
-                            <a class="dropdown-item" href="#" disabled>Participants Evènements</a>
+                            @Html.ActionLink("Participants aux évènements", "ListeSortiesAsso", "Sorties", null, new { @class = "dropdown-item" })
                         </div>
                     </div>
 

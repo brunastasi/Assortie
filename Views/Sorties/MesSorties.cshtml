@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Assortie.Models.SortieAdherent>
+
+@{
+    ViewBag.Title = "MesSorties";
+}
+
+<h3>Mes Sorties</h3>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Adherent.Matricule)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sortie.Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sortie.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sortie.Prix)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sortie.Date)
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adherent.Matricule)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sortie.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sortie.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sortie.Prix)
+                </td>
+                <td>
+                    @if (item.Sortie.Date != null)
+                    {@item.Sortie.Date.ToString("dd/MM/yyyy")}
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
